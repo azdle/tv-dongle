@@ -1,0 +1,36 @@
+[package]
+name = "tv-dongle"
+version = "0.1.0"
+authors = ["azdle <azdle@azdle.net>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+bleps = { git = "https://github.com/bjoernQ/bleps", rev = "b82f1e7009bef7e32f0918be5b186188aa5e7109", version = "0.1.0", features = ["async", "macros"] }
+embassy-executor = { version = "0.2.0", features = ["arch-xtensa", "nightly", "executor-thread", "integrated-timers"] }
+embassy-futures = "0.1.0"
+embassy-net = { git = "https://github.com/embassy-rs/embassy", rev="fb27594", features = ["nightly", "tcp", "udp", "dns", "dhcpv4", "medium-ethernet"]}
+embassy-net-driver = { git = "https://github.com/embassy-rs/embassy", rev = "fb27594" }
+embassy-time = { version = "0.1.1", features = ["nightly"] }
+embedded-hal-async = "0.2.0-alpha.1"
+embedded-io = "0.4.0"
+embedded-svc = { version = "0.25.1", default-features = false }
+esp-alloc = { version = "0.3.0"}
+esp-backtrace = { version = "0.7.0", features = ["esp32s3", "panic-handler", "exception-handler", "print-uart"] }
+esp-println = { version = "0.5.0", features = ["esp32s3", "log"] }
+esp-wifi = { git = "https://github.com/esp-rs/esp-wifi/", branch = "main", features = ["esp32s3", "wifi", "wifi-logs", "async", "embassy-net", "embedded-svc", "phy-enable-usb"]}
+futures-util = { version = "0.3.28", default-features = false }
+hal = { package = "esp32s3-hal", version = "0.9.0", features = ["rt", "async", "embassy", "embassy-time-timg0"] }
+heapless = { version = "0.7.16", default-features = false }
+log = "0.4.19"
+smoltcp = { version = "0.9.0", default-features = false, features = ["proto-igmp", "proto-ipv4", "socket-tcp", "socket-icmp", "socket-udp", "medium-ethernet", "proto-dhcpv4", "socket-raw", "socket-dhcpv4"] }
+
+# doesn't build without this
+[profile.release]
+lto = "off"
+opt-level = 3
+
+# doesn't build without this
+[profile.dev]
+lto = "off"
+opt-level = 2
